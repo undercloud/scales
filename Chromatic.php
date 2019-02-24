@@ -52,7 +52,7 @@ class Chromatic
 		return self::transpose($steps);
 	}
 
-	public static function build($root,$mode)
+	public static function build($root, array $mode)
 	{
 		$primary = self::toRoot($root);
 		return array_map(function($i)use($primary){

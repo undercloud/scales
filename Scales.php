@@ -5,9 +5,22 @@
 	require __DIR__ . '/Modes.php';
 	require __DIR__ . '/Progression.php';
 	require __DIR__ . '/GuitarNeck.php';
-	require __DIR__ . '/Library.php';
+	require __DIR__ . '/Parallel.php';
 
 	return function ($action,$args) {
+		($args[0]);
+
+		$special = [
+			'PENTATONIC-MAJOR',
+			'PENTATONIC-MINOR',
+			'BLUES-MAJOR',
+			'BLUES-MINOR'
+		];
+		if (in_array($args[0],$special)) {
+			Undercloud\Scales\Chords::acceptNonModal();
+			Undercloud\Scales\Progression::acceptNonModal();
+		}
+
 		switch($action){
 			case 'mode':
 				return Undercloud\Scales\Relation::summarize($args[0],$args[1]);
@@ -27,6 +40,15 @@
 				list($mode,$root) = $result;
 				
 				return Undercloud\Scales\Relation::summarize($mode,$root);
+
+			case 'chord':
+				$scale = Undercloud\Scales\Chords::build($args[0],$args[1]);
+
+				return [
+					'type'        => $args[0] . $args[1],
+					'scale'       => $scale,
+					'guitar-neck' => Undercloud\Scales\GuitarNeck::build($scale)
+				];
 		}
 	};
 ?>

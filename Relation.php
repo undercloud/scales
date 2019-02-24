@@ -81,15 +81,15 @@ class Relation
 
 	public static function summarize($mode, $root, $tune = 'EADGBE')
 	{
-		$chords = Progression::build($mode,$root,'chord');
+		$chords = Progression::build($mode,$root,'chord9');
 		$scale  = Modes::get($mode,$root); 
 
 		return [
 			'type'        => $mode . ' in ' . $root,
+			'formula'     => Modes::formula($mode),
 			'scale'       => $scale,
 			'chords'      => $chords,
-			'guitar-neck' => GuitarNeck::build($scale,$tune),
-			'library'     => Library::build($mode,$chords[1],$chords[0])
+			'guitar-neck' => GuitarNeck::build($scale,$tune)
 		];
 	}
 }

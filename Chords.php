@@ -4,12 +4,10 @@ namespace Undercloud\Scales;
 class Chords
 {
 	private static $types = [
-		'5'     => ['C','G'],
-		
-		'sus2'  => ['C','D','G'],
-		'm'     => ['C','D#','G'],
-		'dim'   => ['C','D#','F#'],
 		''      => ['C','E','G'],
+		'm'     => ['C','D#','G'],
+		'sus2'  => ['C','D','G'],
+		'dim'   => ['C','D#','F#'],
 		'aug'   => ['C','E','G#'],
 		'sus4'  => ['C','F','G'],
 
@@ -28,6 +26,29 @@ class Chords
 		'9'     => ['C','D','E','A#'],
 		'm9'    => ['C','D','D#','A#']
 	];
+
+	private static $nonModal = [
+		'5'         => ['C','G'],
+		'(no5)'     => ['C','E'],
+		'm(no5)'    => ['C','D#'],
+		'(qart)'    => ['C','F'],
+		'm7(no5)'   => ['C','D#','A#'],
+		'7(no5)'    => ['C','E','A#'],
+		'maj7(no5)' => ['C','E','B']
+	];
+
+	public static function acceptNonModal()
+	{
+		self::$types = (
+			self::$types + 
+			self::$nonModal
+		);
+	}
+
+	public static function nonModalKeys()
+	{
+		return array_keys(self::$nonModal);
+	}
 
 	public static function names()
 	{

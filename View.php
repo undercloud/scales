@@ -6,6 +6,28 @@
 </head>
 <body>
 	<style>
+		form {
+			display: flex;
+			margin: 20px 0;
+		}
+
+		input,
+		button,
+		select {
+			color: #ecf0f1;
+		    background: #34495e;
+		    font-family: inherit;
+		    border: none;
+		    padding: 20px;
+		    flex-grow: 1;
+		}
+
+		button {
+			flex-grow: 0;
+		    background: #2c3e50;
+		    font-weight: bold;
+		}
+
 		.page {
 			width: 800px;
 			margin: 50px auto;
@@ -52,6 +74,7 @@
 
 		.neck__scale:after,
 		.neck__root:after {
+			content: attr(with-key);
 		    display: inline-block;
 		    text-align: center;
 		    width: 16px;
@@ -62,18 +85,17 @@
 		    border-radius: 50%;
 		    z-index: 1;
 		    position: relative;
+		    font-size: 10px;
+		    font-weight: bold;
+    		line-height: 16px;
 		}
 
 		.neck__scale:after {
-			content: '';
 			background-color: #2980b9;
 		}
 
 		.neck__root:after {
-			content: 'R';
 			background-color: #e74c3c;
-			font-size: 12px;
-			line-height: 16px;
 		}
 
 		.neck .neck__string:last-child {
@@ -96,54 +118,28 @@
 			font-size: 14px;
 			font-family: monospace;
 		}
-	</style>
 
-	<?php 
-		function neckify($inline){
-			$inline = (
-				'<div class="neck__string">' .
-					str_replace(PHP_EOL, '</div><div class="neck__string">', $inline) .
-				'</div>'
-			);
-
-			$inline = str_replace('|| ||', '<span class="neck__bar"></span><span class="neck__empty"></span><span class="neck__bar"></span>', $inline);
-			$inline = str_replace('||', '<span class="neck__bar"></span>', $inline);
-			$inline = str_replace('|', '', $inline);
-			$inline = str_replace('-', '<span class="neck__empty"></span>', $inline);
-			$inline = str_replace('x', '<span class="neck__scale"></span>', $inline);
-			$inline = str_replace('R', '<span class="neck__root"></span>', $inline);
-
-			return (
-				'<div class="neck">' . $inline . '</div>
-				<div class="neck__marker__wrap">
-					<span class="neck__marker"></span>
-					<span class="neck__marker"></span>
-					<span class="neck__marker">3</span>
-					<span class="neck__marker"></span>
-					<span class="neck__marker">5</span>
-					<span class="neck__marker"></span>
-					<span class="neck__marker">7</span>
-					<span class="neck__marker"></span>
-					<span class="neck__marker">9</span>
-					<span class="neck__marker"></span>
-					<span class="neck__marker"></span>
-					<span class="neck__marker">12</span>
-					<span class="neck__marker"></span>
-					<span class="neck__marker"></span>
-					<span class="neck__marker">15</span>
-					<span class="neck__marker"></span>
-					<span class="neck__marker">17</span>
-					<span class="neck__marker"></span>
-					<span class="neck__marker">19</span>
-					<span class="neck__marker"></span>
-					<span class="neck__marker">21</span>
-					<span class="neck__marker"></span>
-					<span class="neck__marker"></span>
-					<span class="neck__marker">24</span>
-				</div>'
-			);
+		.prog {
+			margin: 1px 0;
+			border-bottom: 1px solid #ececec;
 		}
-	?>
+
+		.prog__key {
+			width: 35px;
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		.prog__item {
+			width: 115px;
+			display: inline-block;
+			border-left: 1px solid #ececec;
+			padding: 5px 0 5px 10px;
+			vertical-align: middle;
+			margin-bottom: 1px;
+			white-space: pre;
+		}
+	</style>
 <div class="page">
 	<?php if (is_null($info)): ?>
 		<form action="/scales/">
@@ -163,13 +159,31 @@
 
 		<form action="/scales/">
 			<input type="hidden" name="action" value="search">
-			<input name="args[]" />
+			<input name="args[]" placeholder="C D E F G A B" />
 			<button>GO</button>
 		</form>
 
 		<form action="/scales/">
 			<input type="hidden" name="action" value="search-by">
-			<input name="args[]" />
+			<input name="args[]" placeholder="C F G" />
+			<button>GO</button>
+		</form>
+
+		<form action="/scales/">
+			<input type="hidden" name="action" value="chord">
+			
+			<select name="args[]">
+				<?php foreach(Undercloud\Scales\Chromatic::toRoot('C') as $k): ?>
+					<option><?= $k ?></option>
+				<?php endforeach; ?>
+			</select>
+
+			<select name="args[]">
+				<?php foreach(Undercloud\Scales\Chords::names() as $n): ?>
+					<option><?= $n ?></option>
+				<?php endforeach; ?>
+			</select>
+
 			<button>GO</button>
 		</form>
 	<?php elseif (false === $info): ?>
@@ -178,21 +192,22 @@
 		<h1><?= $info['type'] ?></h1>
 
 		<div><?= implode(' ',$info['scale']) ?></div>
+		
+		<?php if(isset($info['formula'])): ?>
+			<div><?= implode('	',$info['formula']) ?></div>
+		<?php endif; ?>
 
-		<div><pre><?= implode('	| ',$info['chords'][0]) ?></pre></div>
-		<div><pre><?= implode('	| ',$info['chords'][1]) ?></pre></div>
+		<?php if(isset($info['chords'])): ?>
+			<?php foreach($info['chords'] as $key => $val): ?>
+				<div class="prog"><b class="prog__key"><?= $key ?></b>	<?= 
+					implode(array_map(function($v){
+						return '<span class="prog__item">' . $v . '</span>'; 
+					},$val)) 
+				?></div>
+			<?php endforeach; ?>
+		<?php endif; ?>
 
-		<div><?= neckify($info['guitar-neck']) ?></div>
-
-		<div>
-			<?php if ($info['library']): ?>
-				<?php foreach($info['library'] as $lib): ?>
-					<div><pre><?= implode('	| ',$lib[0]) ?></pre></div>
-					<div><pre><?= implode('	| ',$lib[1]) ?></pre></div>
-					<hr />
-				<?php endforeach; ?>
-			<?php endif; ?>
-		</div>
+		<div style="margin-top: 20px"><?= ($info['guitar-neck']) ?></div>
 	<?php endif; ?>
 </div>
 </body>
