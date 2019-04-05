@@ -4,6 +4,7 @@ namespace Undercloud\Scales;
 class Chords
 {
 	private static $types = [
+		'5'     => ['C','G'],
 		''      => ['C','E','G'],
 		'm'     => ['C','D#','G'],
 		'sus2'  => ['C','D','G'],
@@ -28,7 +29,6 @@ class Chords
 	];
 
 	private static $nonModal = [
-		'5'         => ['C','G'],
 		'(no5)'     => ['C','E'],
 		'm(no5)'    => ['C','D#'],
 		'(qart)'    => ['C','F'],

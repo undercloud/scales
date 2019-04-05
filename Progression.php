@@ -9,7 +9,7 @@ class Progression
 	{
 		$types = [];
 
-		$types['chord']  = array_merge(['','m','dim','aug'],self::$extra);
+		$types['chord']  = array_merge(['','m','dim','aug','5'],self::$extra);
 		$types['chord7'] = array_merge($types['chord'],['maj7','m7','7','m7b5','dim7'],self::$extra);
 		$types['chord9'] = array_merge($types['chord7'],['maj9','m9','9'],self::$extra);
 
@@ -38,7 +38,7 @@ class Progression
 	public static function view($interval,$chord)
 	{
 		$roman = self::$roman[$interval];
-		if (false === in_array($chord,['','maj7','7','maj9','9'])){
+		if (false === in_array($chord,['','5','maj7','7','maj9','9'])){
 			$roman = strtolower($roman);
 		}
 

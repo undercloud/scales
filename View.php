@@ -131,13 +131,14 @@
 		}
 
 		.prog__item {
-			width: 115px;
+			width: 120px;
 			display: inline-block;
 			border-left: 1px solid #ececec;
 			padding: 5px 0 5px 10px;
 			vertical-align: middle;
 			margin-bottom: 1px;
 			white-space: pre;
+			font-size: 15px;
 		}
 	</style>
 <div class="page">
