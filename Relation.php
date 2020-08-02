@@ -81,7 +81,7 @@ class Relation
 
 	public static function summarize($mode, $root, $tune = 'EADGBE')
 	{
-		$chords = Progression::build($mode,$root,'chord9');
+		$chords = Progression::build($mode,$root,'all');
 		$scale  = Modes::get($mode,$root); 
 
 		return [

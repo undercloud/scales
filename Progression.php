@@ -7,11 +7,26 @@ class Progression
 
 	private static function getFormula($type)
 	{
+		if('all' === $type){
+			return Chords::names();
+		}
+
 		$types = [];
 
-		$types['chord']  = array_merge(['','m','dim','aug','5'],self::$extra);
-		$types['chord7'] = array_merge($types['chord'],['maj7','m7','7','m7b5','dim7'],self::$extra);
-		$types['chord9'] = array_merge($types['chord7'],['maj9','m9','9'],self::$extra);
+		$types['chord']  = array_merge(
+			['','m','dim','aug','5'],
+			self::$extra
+		);
+
+		$types['chord7'] = array_merge(
+			$types['chord'],['maj7','m7','7','m7b5','dim7'],
+			self::$extra
+		);
+
+		$types['chord9'] = array_merge(
+			$types['chord7'],['maj9','m9','9'],
+			self::$extra
+		);
 
 		return $types[$type];
 	}
@@ -64,10 +79,12 @@ class Progression
 						Chromatic::toRoot($root)
 					);
 					$chords[$s][] = (
-						$s . $c . 
+						'<b>' . $s . $c . '</b>' . 
 						' (' . self::view($interval,$c) . ') ' . 
 						PHP_EOL .
-						implode($chord)
+						"<span class='prog__play' onclick=\"ChordsPlayer.play(['" . implode("','",$chord) . "'])\">" . 
+							implode($chord) .
+						"</span>"
 					);
 				}
 			}

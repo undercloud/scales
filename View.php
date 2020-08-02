@@ -131,7 +131,7 @@
 		}
 
 		.prog__item {
-			width: 120px;
+			width: auto;
 			display: inline-block;
 			border-left: 1px solid #ececec;
 			padding: 5px 0 5px 10px;
@@ -139,6 +139,19 @@
 			margin-bottom: 1px;
 			white-space: pre;
 			font-size: 15px;
+			width: 20%;
+			overflow: hidden;
+		}
+
+		.prog__play {
+			cursor: pointer;
+    		border-bottom: 1px dashed;
+    		display: inline-block;
+		}
+
+		.roll__board {
+			width: 365px;
+   			margin: 50px auto;
 		}
 	</style>
 <div class="page">
@@ -190,9 +203,33 @@
 	<?php elseif (false === $info): ?>
 		<b>Nothing Found... :(</b>
 	<?php else: ?>
+		<script type="text/javascript" src="audio/audio.js"></script>
+
+		<script type="text/javascript">
+			ChordsPlayer.instrument = 'piano'
+			ChordsPlayer.strum = 75
+			ChordsPlayer.root = 'audio/samples'
+		</script>
+
+		<select 
+			onchange="ChordsPlayer.instrument = this.value" 
+			style="position:fixed;top:0;right:0;">
+			<option value="piano">Piano</option>
+			<option value="rhodes">Rhodes</option>
+			<option value="organ">Organ</option>
+			<option value="guitar">Guitar</option>
+		</select>
+
 		<h1><?= $info['type'] ?></h1>
 
-		<div><?= implode(' ',$info['scale']) ?></div>
+		<div <?php 
+			if($_GET['action'] === 'chord'):?>
+				class="prog__play" 
+				onclick="ChordsPlayer.play(['<?php echo implode("','",$info['scale']);?>'])"
+			<?php endif;?> 
+		>
+			<?= implode(' ',$info['scale']) ?>	
+		</div>
 		
 		<?php if(isset($info['formula'])): ?>
 			<div><?= implode('	',$info['formula']) ?></div>
@@ -200,11 +237,15 @@
 
 		<?php if(isset($info['chords'])): ?>
 			<?php foreach($info['chords'] as $key => $val): ?>
-				<div class="prog"><b class="prog__key"><?= $key ?></b>	<?= 
+				<div class="prog"><b class="prog__key"><?= $key ?></b>
+					<ul>
+					<?= 
 					implode(array_map(function($v){
-						return '<span class="prog__item">' . $v . '</span>'; 
+						return '<li class="prog__item">' . $v . '</li>'; 
 					},$val)) 
-				?></div>
+					?>
+					</ul>
+				</div>
 			<?php endforeach; ?>
 		<?php endif; ?>
 

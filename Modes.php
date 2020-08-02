@@ -15,7 +15,7 @@ class Modes
 		'LOCRIAN'           => ['B','C','D','E','F','G','A'],
 		'PENTATONIC-MAJOR'  => ['C','D','E','G','A'],
 		'PENTATONIC-MINOR'  => ['C','D#','F','G','A#'],
-		'MELODIC-MINOR'     => ['C','D','D#','F','G','A','B'],
+		'HARMONIC-MAJOR'    => ['C','D','E','F','G','G#','B'],
 		'HARMONIC-MINOR'    => ['C','D','D#','F','G','G#','B'],
 		'BLUES-MAJOR'       => ['C','D','D#','E','G','A'],
 		'BLUES-MINOR'       => ['C','D#','F','F#','G','A#'],
@@ -26,8 +26,39 @@ class Modes
 		'GIPSY'             => ['A','B','C','D#','E','F','G#'],
 		'ROMANIAN'          => ['A','B','C','D#','E','F#','G'],
 		'PHRYGIAN-DOMINANT' => ['E','F','G#','A','B','C','D'],
-		'MIXOLYDIAN-FLAT-6' => ['C','D','E','F','G','G#','A#'],
-		'BE-BOOP'           => ['C','D','E','F','G','A','A#','B']
+		'BE-BOOP'           => ['C','D','E','F','G','A','A#','B'],
+
+		'LYDIAN-AUGMENTED' => ['C','D','E','F#','G#','A','B'],
+		'MIXOLYDIAN #4' => ['C','D','E','F#','G','A','A#'],
+		'MIXOLYDIAN b6' => ['C','D','E','F','G','G#','A#'],
+		'DORIAN ♮7' => ['C','D','D#','F','G','A','B'],
+		'AEOLIAN b5' => ['C','D','D#','F','F#','G#','A#'],
+		'PHRYGIAN ♮6' => ['C','C#','D#','F','G','A','A#'],
+		'ALTERED (SUPER LOCRIAN)' => ['C','C#','D#','E','F#','G#','A#'],
+
+		'AEOLIAN ♮7' => ['C','D','D#','F','G','G#','B'],
+		'LOCRIAN ♮6' => ['C','C#','D#','F','F#','A','A#'],
+		'IONIAN #5' => ['C','D','E','F','G#','A','B'],
+		'DORIAN #4' => ['C','D','D#','F#','G','A','A#'],
+		'PHRYGIAN ♮3' => ['C','C#','E','F','G','G#','A#'],
+		'LYDIAN #2' => ['C','D#','E','F#','G','A','B'],
+		'ALTERED bb7' => ['C','C#','D#','E','F#','G#','A'],
+
+		'DORIAN ♮7 #5' => ['C','D','D#','F','G#','A','B'],
+		'PHRYGIAN ♮6 #4' => ['C','C#','D#','F#','G','A','A#'],
+		'LYDIAN #5 #3' => ['C','D','F','F#','G#','A','B'],
+		'MIXOLYDIAN #2 #4' => ['C','D#','E','F#','G','A','A#'],
+		'ALTERED bb6 bb7' => ['C','C#','D#','E','F#','G','A'],
+		'AEOLIAN ♮7 b5' => ['C','D','D#','F','F#','G#','B'],
+		'ALTERED ♮6' => ['C','D','D#','E','F#','A','A#'],
+
+		'IONIAN b6' => ['C','D','E','F','G','G#','B'],
+		'DORIAN b5' => ['C','D','D#','F','F#','A','A#'],
+		'PHRYGIAN b4' => ['C','C#','D#','E','G','G#','A#'],
+		'LYDIAN b3' => ['C','D','D#','F#','G','A','B'],
+		'MIXOLYDIAN b2' => ['C','C#','E','F','G','A','A#'],
+		'LYDIAN #5 #2' => ['C','D#','E','F#','G#','A','B'],
+		'LOCRIAN bb7' => ['C','C#','D#','F','F#','G#','A']
 	];
 
 	public static function formula($mode)
