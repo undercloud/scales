@@ -1,5 +1,6 @@
 
 var ChordsPlayer = {
+	interval: null,
 	root: '',
 	instrument: '',
 	strum: false,
@@ -38,7 +39,7 @@ var ChordsPlayer = {
 			audio.stop()
 		})
 
-		ChordsPlayer.audio.length = 0;
+		ChordsPlayer.audio.length = 0
 	},
 
 	play: function (chord) {
@@ -51,5 +52,28 @@ var ChordsPlayer = {
 				audio.play()
 			},ChordsPlayer.strum ? index * ChordsPlayer.strum : 0)
 		})
+	},
+
+	start: function (sequence) {
+		this.cancel()
+
+		var bpm = document.getElementById('bpm')
+		var delay = 60 / parseInt(bpm.value) * 1000
+
+		var beat = 0;
+		this.interval = setInterval(function(){
+			if(beat++ % 4 === 0){
+				var chord = sequence.shift()
+				sequence.push(chord)
+				ChordsPlayer.play(chord.slice())
+			}
+		},delay)
+
+		bpm.disabled = true
+	},
+
+	cancel: function () {
+		clearInterval(this.interval)
+		document.getElementById('bpm').disabled = false
 	}
 }
