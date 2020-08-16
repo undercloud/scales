@@ -25,24 +25,28 @@ class Chromatic
 
 	public static function sharpToFlat($key)
 	{
-		return ([
+		$set = ([
 			'C#' => 'Db',
 			'D#' => 'Eb',
 			'F#' => 'Gb',
 			'G#' => 'Ab',
 			'A#' => 'Bb'
-		])[$key];
+		]);
+
+		return $set[$key];
 	}
 
 	public static function flatToSharp($key)
 	{
-		return ([
+		$set = ([
 			'Db' => 'C#',
 			'Eb' => 'D#',
 			'Gb' => 'F#',
 			'Ab' => 'G#',
 			'Bb' => 'A#'
-		])[$key];
+		]);
+
+		return $set[$key];
 	}
 
 	public static function toRoot($root)

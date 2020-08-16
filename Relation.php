@@ -89,7 +89,8 @@ class Relation
 			'formula'     => Modes::formula($mode),
 			'scale'       => $scale,
 			'chords'      => $chords,
-			'guitar-neck' => GuitarNeck::build($scale,$tune)
+			'guitar-neck' => GuitarNeck::build($scale,$tune),
+			'sequence'    => Sequence::extract($mode, $root)
 		];
 	}
 }

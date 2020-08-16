@@ -6,6 +6,7 @@
 	require __DIR__ . '/Progression.php';
 	require __DIR__ . '/GuitarNeck.php';
 	require __DIR__ . '/Parallel.php';
+	require __DIR__ . '/Sequence.php';
 
 	return function ($action,$args) {
 		($args[0]);

@@ -6,6 +6,7 @@ use Exception;
 class Modes
 {
 	private static $natural = [
+		'CHROMATIC'         => ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'],
 		'IONIAN'            => ['C','D','E','F','G','A','B'],
 		'DORIAN'            => ['D','E','F','G','A','B','C'],
 		'PHRYGIAN'          => ['E','F','G','A','B','C','D'],

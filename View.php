@@ -11,21 +11,29 @@
 			margin: 20px 0;
 		}
 
-		input,
+		input:not([type="range"]),
 		button,
 		select {
 			color: #ecf0f1;
 		    background: #34495e;
 		    font-family: inherit;
+		    outline: none;
 		    border: none;
 		    padding: 20px;
 		    flex-grow: 1;
+		    vertical-align: middle;
+		    line-height: 18px;
 		}
 
 		button {
 			flex-grow: 0;
 		    background: #2c3e50;
 		    font-weight: bold;
+		    cursor: pointer;
+		}
+
+		button:hover {
+			background: #28323c;
 		}
 
 		.page {
@@ -211,29 +219,22 @@
 			ChordsPlayer.root = 'audio/samples'
 		</script>
 
-		<select 
-			onchange="ChordsPlayer.instrument = this.value" 
-			style="position:fixed;top:0;right:0;">
-			<option value="piano">Piano</option>
-			<option value="rhodes">Rhodes</option>
-			<option value="organ">Organ</option>
-			<option value="guitar">Guitar</option>
-		</select>
-
 		<h1><?= $info['type'] ?></h1>
 
-		<div <?php 
+		<div style="font-family: monospace" <?php 
 			if($_GET['action'] === 'chord'):?>
 				class="prog__play" 
 				onclick="ChordsPlayer.play(['<?php echo implode("','",$info['scale']);?>'])"
 			<?php endif;?> 
-		>
+		><br/>
 			<?= implode(' ',$info['scale']) ?>	
 		</div>
 		
 		<?php if(isset($info['formula'])): ?>
-			<div><?= implode('	',$info['formula']) ?></div>
+			<div style="font-family: monospace"><?= implode('	',$info['formula']) ?></div><br/>
 		<?php endif; ?>
+
+		<?php require __DIR__ . '/Sequence.View.php'; ?>
 
 		<?php if(isset($info['chords'])): ?>
 			<?php foreach($info['chords'] as $key => $val): ?>
