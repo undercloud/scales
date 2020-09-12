@@ -84,7 +84,7 @@ class Sequence
 		array('2.dim','6b'),
 
 		// phrygian
-		array('1.m','4.m','6b','1b'),
+		array('1.m','4.m','6b','2b'),
 
 		// maj
 		/*
