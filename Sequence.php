@@ -59,7 +59,7 @@ class Sequence
 		$keys = Modes::get($name,$root);
 	
 		$sequence = [];
-		foreach(self::$progressons as $progression){
+		foreach(self::$progressions as $progression){
 			$build = self::build($root,$progression);
 
 			if(count(array_intersect($build['keys'],$keys)) === count($build['keys'])){
@@ -70,8 +70,24 @@ class Sequence
 		return $sequence;
 	}
 
-	private static $progressons = array(
+	private static $progressions = array(
+		array('1.m','5.m','4.m','7b'),
+
+		// harmonic minor
+		array('1.m','2.m7b5','6b','7.dim'),
+		array('1.m','2.m7b5','6b','5'),
+		array('1.m','5','6b','4.m'),
+		array('1.m','4.m','5','6b'),
+		array('1.m','6b','2.dim','5'),
+		array('2.dim','1.m'),
+		array('1.m','2.dim'),
+		array('2.dim','6b'),
+
+		// phrygian
+		array('1.m','4.m','6b','1b'),
+
 		// maj
+		/*
 		array('1','5.7'),
 		array('1','4'),
 		array('1','4','5.7','1'),
@@ -121,5 +137,24 @@ class Sequence
 		array('1.m','1#.dim','4.m','5.7'),
 		array('1.m','6b','2.7','5.7'),
 		array('1.m','1.dim','4.m','5.7'),
+		array('1.m','5.aug'),
+		array('1.m','1.dim','1.m','2.7','4.m','5.7'),
+		array('1.m','2.7','5.7','1.m'),
+		array('1.m','4.m','5.7','1.m'),
+		array('1.m','1.7','4.m','1.m'),
+		array('1.m','4.7'),
+		array('1.m','7b.7'),
+		array('1.m','5.m','6b.7','5.7'),
+		array('1.m','7b.7','4.m','5.7'),
+		array('1.m','6b.7','4.m','7b.7','3b','1.aug','4.m'),
+		array('1.m','1.7','4.7','1.m'),
+		array('1.m','4.m','3b.7','6b.7'),
+		array('1.m','1.7','7.7','7b.7'),
+		array('1.m','3b.m','2.m','2b.7'),
+		array('1.m','3b.7','2.7','2b.7'),
+		array('1.m','6b.7','1.m','1.dim','4.m','5.7'),
+		array('1.m','5.m','6b.7','4.m'),
+		array('1.m','4.m','2.7','5.7')
+		*/
 	);
 }

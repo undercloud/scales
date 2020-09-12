@@ -40,9 +40,9 @@ class Progression
 	private static $alt = [
 		'm'    => '',
 		'aug'  => '+',
-		'dim'  => '°',
-		'dim7' => '°7',
-		'm7b5' => 'Ø'
+		'dim'  => '&#xb0;',
+		'dim7' => '&#xb0;7',
+		'm7b5' => '&#xf8;'
 	];
 
 	public static function acceptNonModal()

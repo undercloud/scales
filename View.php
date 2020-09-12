@@ -136,6 +136,7 @@
 			width: 35px;
 			display: inline-block;
 			vertical-align: middle;
+			font-size: 24px;
 		}
 
 		.prog__item {
@@ -168,7 +169,7 @@
 			<input type="hidden" name="action" value="mode">
 			<select name="args[]">
 				<?php foreach(Undercloud\Scales\Modes::keys() as $k): ?>
-					<option><?= $k ?></option>
+					<option value="<?= $k ?>"><?= str_replace(array('♯','♭','♮'),array('&#x266f;','&#x266d;','&#x266e;'),$k) ?></option>
 				<?php endforeach; ?>
 			</select>
 			<select name="args[]">
@@ -219,7 +220,7 @@
 			ChordsPlayer.root = 'audio/samples'
 		</script>
 
-		<h1><?= $info['type'] ?></h1>
+		<h1><?= str_replace(array('♯','♭','♮'),array('&#x266f;','&#x266d;','&#x266e;'),$info['type']) ?></h1>
 
 		<div style="font-family: monospace" <?php 
 			if($_GET['action'] === 'chord'):?>
