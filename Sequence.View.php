@@ -1,4 +1,4 @@
-<div>
+<div style="margin: 20px 0;">
 	<select 
 		style="width:25%"
 		onchange="ChordsPlayer.instrument = this.value">
@@ -29,4 +29,19 @@ if($info['sequence']){
 	oninput="document.getElementById('bpm-label').innerText = this.value + ' BPM'" /><!--
  --><span id="bpm-label" style="display:inline-block;width:10%;text-align:center">120 BPM</span>
 </div>
-<br/>
+
+<?php $chromatic = Undercloud\Scales\Chromatic::toRoot('C'); ?>
+<?php $piano = [$chromatic,$chromatic,$chromatic]; ?>
+
+<div class="piano-wrap">
+<?php foreach($piano as $octave => $notes): ?>
+	<?php foreach($notes as $note): ?>
+		<div 
+			id="piano-key-<?= $note . ($octave + 1) ?>" 
+			onclick="ChordsPlayer.note('<?= $note . ($octave + 1) ?>')" 
+			class="piano-key <?= strpos($note,'#') ? 'piano-key-sharp' : '' ?> <?php if(in_array($note,$info['order'])): ?>
+			piano-order piano-order-<?= Undercloud\Scales\Order::getRole(array_search($note,$info['order'])) ?>
+			<?php endif;?>"></div>
+	<?php endforeach; ?>
+<? endforeach; ?>
+</div>

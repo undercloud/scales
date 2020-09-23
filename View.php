@@ -162,6 +162,64 @@
 			width: 365px;
    			margin: 50px auto;
 		}
+
+		.order {
+			margin: 20px 0;
+			font-size: 35px;
+		}
+
+		.order-role-root { color: #9b59b6;  }
+		.order-role-first { color: #2ecc71; }
+		.order-role-second { color: #3498db; }
+		.order-role-third { color: #e74c3c; }
+
+		.piano-wrap {
+			font-size: 0;
+			position: relative;
+			border: 10px solid;
+			border-radius: 10px;
+			display: inline-block;
+			margin: 20px 0;
+		}
+
+		.piano-key {
+			border: 1px solid #ddd;
+			display: inline-block;
+			padding: 80px 16px;
+			vertical-align: top;
+			position: relative;
+		}
+
+		.piano-key-sharp {
+			background: #34495e;
+			padding: 50px 16px;
+			margin-left: -16px;
+			position: absolute;
+			z-index: 1;
+		}
+
+		.piano-key:active,
+		.piano-key-sharp:active,
+		.piano-key-active {
+			background: #e74c3c;
+		}
+
+		.piano-order:before {
+			content: '';
+			position: absolute;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			bottom: 5px;
+			left: 0;
+			right: 0;
+			margin: auto;
+		}
+
+		.piano-order-root:before   { background: #9b59b6; }
+		.piano-order-first:before  { background: #2ecc71; }
+		.piano-order-second:before { background: #3498db; }
+		.piano-order-third:before  { background: #e74c3c; }
 	</style>
 <div class="page">
 	<?php if (is_null($info)): ?>
@@ -222,7 +280,7 @@
 
 		<h1><?= str_replace(array('♯','♭','♮'),array('&#x266f;','&#x266d;','&#x266e;'),$info['type']) ?></h1>
 
-		<div style="font-family: monospace" <?php 
+		<div style="font-family: monospace;font-size: 20px;" <?php 
 			if($_GET['action'] === 'chord'):?>
 				class="prog__play" 
 				onclick="ChordsPlayer.play(['<?php echo implode("','",$info['scale']);?>'])"
@@ -232,7 +290,17 @@
 		</div>
 		
 		<?php if(isset($info['formula'])): ?>
-			<div style="font-family: monospace"><?= implode('	',$info['formula']) ?></div><br/>
+			<div style="font-family: monospace;font-size:20px;"><?= implode('	',$info['formula']) ?></div>
+		<?php endif; ?>
+
+		<?php if(isset($info['order'])): ?>
+			<div class="order">
+				<?php foreach($info['order'] as $index => $key): ?>
+					<span class="order-role-<?= Undercloud\Scales\Order::getRole($index) ?>">
+						<?= $key ?>
+					</span>
+				<?php endforeach; ?>
+			</div>
 		<?php endif; ?>
 
 		<?php require __DIR__ . '/Sequence.View.php'; ?>

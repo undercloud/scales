@@ -88,6 +88,7 @@ class Relation
 			'type'        => $mode . ' in ' . $root,
 			'formula'     => Modes::formula($mode),
 			'scale'       => $scale,
+			'order'       => Order::build($root,$scale),
 			'chords'      => $chords,
 			'guitar-neck' => GuitarNeck::build($scale,$tune),
 			'sequence'    => Sequence::extract($mode, $root)
