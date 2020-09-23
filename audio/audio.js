@@ -42,14 +42,25 @@ var ChordsPlayer = {
 		ChordsPlayer.audio.length = 0
 	},
 
+	note: function (name) {
+		var key = document.getElementById('piano-key-' + name)
+
+		key.classList.add('piano-key-active')
+
+		var audio = new Audio()
+		audio.src = ChordsPlayer.root + '/' + ChordsPlayer.instrument + '/' + escape(name) + '.mp3'
+		audio.onended = function () {
+			key.classList.remove('piano-key-active')
+		}
+		audio.play()
+	},
+
 	play: function (chord) {
 		ChordsPlayer.stop()
 
 		ChordsPlayer.tune(chord).forEach(function(note,index){
 			setTimeout(function(){
-				var audio = new Audio()
-				audio.src = ChordsPlayer.root + '/' + ChordsPlayer.instrument + '/' + escape(note) + '.mp3'
-				audio.play()
+				ChordsPlayer.note(note)
 			},ChordsPlayer.strum ? index * ChordsPlayer.strum : 0)
 		})
 	},
