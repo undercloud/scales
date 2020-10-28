@@ -8,6 +8,7 @@
 	require __DIR__ . '/Parallel.php';
 	require __DIR__ . '/Sequence.php';
 	require __DIR__ . '/Order.php';
+	require __DIR__ . '/Negative.php';
 
 	return function ($action,$args) {
 		($args[0]);
@@ -44,11 +45,18 @@
 				return Undercloud\Scales\Relation::summarize($mode,$root);
 
 			case 'chord':
-				$scale = Undercloud\Scales\Chords::build($args[0],$args[1]);
+			case 'negative':
+				$scale    = Undercloud\Scales\Chords::build($args[0],$args[1]);
+				
+				if('negative' === $action){
+					$reverse  = Undercloud\Scales\Negative::build($args[2],$scale);
+					$negative = Undercloud\Scales\Chords::search($reverse);
+				}
 
 				return [
 					'type'        => $args[0] . $args[1],
 					'scale'       => $scale,
+					'negative'    => (isset($negative) ? [implode($negative),$reverse] : null),
 					'guitar-neck' => Undercloud\Scales\GuitarNeck::build($scale)
 				];
 		}

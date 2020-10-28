@@ -25,6 +25,7 @@ class Chords
 		'm7(open-3)'   => ['C','A#','D#','G'],
 		'6'            => ['C','E','G','A'],
 		'7'            => ['C','E','G','A#'],
+		'7(alt)'       => ['C','A#','D#','E','G#'],
 		'7(b5)'        => ['C','E','F#','A#'],
 		'7(#5)'        => ['C','E','G#','A#'],
 		'7(#5,#9)'     => ['C','E','G#','A#','D#'],
@@ -32,6 +33,8 @@ class Chords
 		'7(open-1)'    => ['C','G','A#','E'],
 		'7(open-2)'    => ['C','G','E','A#'],
 		'7(open-3)'    => ['C','A#','E','G'],
+		'6/7/9(A)'     => ['C','E','A','A#','D'],
+		'6/7/9(B)'     => ['C','A#','D','E','A'],
 		'maj7'         => ['C','E','G','B'],
 		'maj7#4'       => ['C','E','F#','G','B'],
 		'maj7(b5)'     => ['C','E','F#','B'],
@@ -123,6 +126,16 @@ class Chords
 		}
 
 		return [$name,$type];
+	}
+
+	public static function search(array $scale)
+	{
+		$root = reset($scale);
+		foreach(self::names() as $type){
+			if($scale == self::build($root,$type)){
+				return [$root,$type];
+			}
+		}
 	}
 }
 ?>

@@ -267,6 +267,30 @@
 
 			<button>GO</button>
 		</form>
+
+		<form action="/scales/">
+			<input type="hidden" name="action" value="negative">
+
+			<select name="args[]">
+				<?php foreach(Undercloud\Scales\Chromatic::toRoot('C') as $k): ?>
+					<option><?= $k ?></option>
+				<?php endforeach; ?>
+			</select>
+
+			<select name="args[]">
+				<?php foreach(Undercloud\Scales\Chords::names() as $n): ?>
+					<option><?= $n ?></option>
+				<?php endforeach; ?>
+			</select>
+
+			<select name="args[]">
+				<?php foreach(Undercloud\Scales\Chromatic::toRoot('C') as $k): ?>
+					<option><?= $k ?></option>
+				<?php endforeach; ?>
+			</select>
+
+			<button>GO</button>
+		</form>
 	<?php elseif (false === $info): ?>
 		<b>Nothing Found... :(</b>
 	<?php else: ?>
@@ -289,6 +313,16 @@
 			<?= implode(' ',$info['scale']) ?>	
 		</div>
 		
+		<?php if(isset($info['negative'])): ?>
+			<h1><?= $info['negative'][0] ?> (negative)</h1>
+			<div style="font-family: monospace;font-size: 20px;"
+				class="prog__play" 
+				onclick="ChordsPlayer.play(['<?php echo implode("','",$info['negative'][1]);?>'])"
+			><br/>
+				<?= implode(' ',$info['negative'][1]) ?>
+			</div>
+		<? endif; ?>
+
 		<?php if(isset($info['formula'])): ?>
 			<div style="font-family: monospace;font-size:20px;"><?= implode('	',$info['formula']) ?></div>
 		<?php endif; ?>
