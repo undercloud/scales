@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title></title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<link href="//fonts.googleapis.com/css?family=Fira+Sans:300normal,300italic,400normal,400italic,500normal,500italic,700normal,700italic|Open+Sans:400normal|Roboto:400normal|Lato:400normal|Oswald:400normal|Source+Sans+Pro:400normal|Montserrat:400normal|Raleway:400normal|Open+Sans+Condensed:300normal|PT+Sans:400normal|Roboto+Condensed:400normal&amp;subset=all" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -158,6 +159,27 @@
     		display: inline-block;
 		}
 
+		.prog__resolve {
+			background-color: #8e44ad;
+			color: #fff;
+			font-size: 20px;
+			padding: 5px;
+			margin: 3px 0;
+			display: inline-block;
+			border-radius: 3px;
+		}
+
+		.prog__resolve-toggle {
+			position: sticky;
+			top: 0;
+			left: 0;
+			width: 150px;
+			padding: 10px;
+			z-index: 2;
+			background: #34495e;
+			color: #ffffff;
+		}
+
 		.roll__board {
 			width: 365px;
    			margin: 50px auto;
@@ -294,12 +316,63 @@
 	<?php elseif (false === $info): ?>
 		<b>Nothing Found... :(</b>
 	<?php else: ?>
+			<div class="prog__resolve-toggle">
+				<label>
+					<input id="resolve-toggler" type="checkbox" onchange="Resolver.isOn = this.checked" /> Resolve
+				</label>
+				<div id="resolve-pin"></div>
+			</div>
+
 		<script type="text/javascript" src="audio/audio.js"></script>
 
 		<script type="text/javascript">
 			ChordsPlayer.instrument = 'piano'
 			ChordsPlayer.strum = 75
 			ChordsPlayer.root = 'audio/samples'
+
+			Resolver = {
+				isOn: false,
+				pin: function (label,chord) {
+					document.querySelector('#resolve-pin').innerHTML = (
+						'<span class="prog__play" onclick="ChordsPlayer.play([\'' + chord.join("','") + '\'])">' + 
+							label + 
+						'</span>'
+					)
+				},
+				resolve: function (mode,root,chord,label) {
+					if(this.isOn){
+						this.isOn = false
+						document.querySelector('#resolve-toggler').checked = false
+						this.pin(label,chord)
+
+						var query = ''
+
+						query += '&args[0]=' + mode;
+						query += '&args[1]=' + root;
+
+						chord.forEach(function(note,index){
+							query += '&args[2][' + index + ']=' + escape(note)
+						})
+
+						fetch('?action=resolve' + query)
+  							.then(function(response){ return response.json() })
+  							.then(function(response){
+  								document.querySelectorAll('.prog__resolve').forEach(function(item){
+  									item.classList.remove('prog__resolve')
+  								})
+
+  								if(response && response.resolve){
+  									response.resolve.forEach(function(chord){
+  										document
+  											.querySelector('.prog__title[data-chord-name="' + chord + '"]')
+  											.classList
+  											.add('prog__resolve')
+  									})
+  								}
+  							})
+					}
+				}
+			}
 		</script>
 
 		<h1><?= str_replace(array('♯','♭','♮'),array('&#x266f;','&#x266d;','&#x266e;'),$info['type']) ?></h1>

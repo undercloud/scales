@@ -9,6 +9,7 @@
 	require __DIR__ . '/Sequence.php';
 	require __DIR__ . '/Order.php';
 	require __DIR__ . '/Negative.php';
+	require __DIR__ . '/Resolve.php';
 
 	return function ($action,$args) {
 		($args[0]);
@@ -44,9 +45,18 @@
 				
 				return Undercloud\Scales\Relation::summarize($mode,$root);
 
+			case 'resolve':
+				echo json_encode([
+					'resolve' => Undercloud\Scales\Resolve::search(
+						Undercloud\Scales\Modes::get($args[0],$args[1]),
+						$args[2]
+					)
+				]);
+				exit;
+
 			case 'chord':
 			case 'negative':
-				$scale    = Undercloud\Scales\Chords::build($args[0],$args[1]);
+				$scale = Undercloud\Scales\Chords::build($args[0],$args[1]);
 				
 				if('negative' === $action){
 					$reverse  = Undercloud\Scales\Negative::build($args[2],$scale);

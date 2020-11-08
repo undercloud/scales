@@ -79,10 +79,10 @@ class Progression
 						Chromatic::toRoot($root)
 					);
 					$chords[$s][] = (
-						'<b>' . $s . $c . '</b>' . 
+						'<b class="prog__title" data-chord-name="' . $s . $c . '">' . $s . $c . '</b>' . 
 						' (' . self::view($interval,$c) . ') ' . 
 						PHP_EOL .
-						"<span class='prog__play' onclick=\"ChordsPlayer.play(['" . implode("','",$chord) . "'])\">" . 
+						"<span class='prog__play' onclick=\"ChordsPlayer.play(['" . implode("','",$chord) . "']);Resolver.resolve('{$mode}','{$root}',['" . implode("','",$chord) . "'],'" . $s . $c . "')\">" . 
 							implode($chord) .
 						"</span>"
 					);
