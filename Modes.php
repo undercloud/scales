@@ -30,12 +30,17 @@ class Modes
 		'PHRYGIAN-DOMINANT' => ['E','F','G#','A','B','C','D'],
 		'BE-BOOP'           => ['C','D','E','F','G','A','A#','B'],
 
+		'LYDIAN-AUGMENTED'  => ['C','D','E','F#','G#','A','B'],
+		'LYDIAN-DIMINISHED' => ['C','D','D#','F#','G','A','B'],
+		'AUX-DIM'           => ['C','D','D#','F','F#','G#','A','B'],
+		'AUX-AUG'           => ['C','D','E','F#','G#','A#'],
+		'AUX-DIM-BLUES'     => ['C','C#','D#','E','F#','G','A','A#'],
+
 		'HALF-WHOLE-DIMINISHED' => ['C','C#','D#','E','F#','G','A','A#'],
 		'WHOLE-HALF-DIMINISHED' => ['C','D','D#','F','F#','G#','A','B'],
 		'ALTERED-DIMINISHED'    => ['C','C#','D#','E','F#','G#','A#'],
 		'AUGMENTED'             => ['A#','C#','D','F','F#','A'],
-
-		'LYDIAN-AUGMENTED' => ['C','D','E','F#','G#','A','B'],
+		
 		'MIXOLYDIAN ♯4' => ['C','D','E','F#','G','A','A#'],
 		'MIXOLYDIAN ♭6' => ['C','D','E','F','G','G#','A#'],
 		'DORIAN ♮7' => ['C','D','D#','F','G','A','B'],

@@ -12,6 +12,9 @@ class Relation
 
 	public static function isApartOf($part,$mode)
 	{
+		$part = array_unique($part);
+		$mode = array_unique($mode);
+
 		return (
 			count($part) == count(array_intersect($mode,$part))
 		);

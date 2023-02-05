@@ -5,7 +5,7 @@ class Chords
 {
 	private static $types = [
 		'5'     => ['C','G'],
-		''      => ['C','E','G'],
+		'M'     => ['C','E','G'],
 		'm'     => ['C','D#','G'],
 		'sus2'  => ['C','D','G'],
 		'dim'   => ['C','D#','F#'],
@@ -180,6 +180,20 @@ class Chords
 				return [$root,$type];
 			}
 		}
+	}
+
+	public static function exportCartesian()
+	{
+		$keys = Chromatic::toRoot('C');
+
+		$formatted = array();
+		foreach(self::$types as $type => $set){
+			foreach($keys as $key){
+				$formatted[$type][$key] = self::build($key,$type);
+			}
+		}
+
+		return $formatted;
 	}
 }
 ?>
