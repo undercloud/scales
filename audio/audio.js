@@ -15,18 +15,20 @@ var ChordsPlayer = {
 	},
 
 	tune: function (chord) {
+		var tuned = chord.slice(0)
+
 		var tune = []
-		var compare = chord.shift();
+		var compare = tuned.shift();
 		for(var x in ChordsPlayer.notes){
 			if(ChordsPlayer.notes.hasOwnProperty(x)){
 				if(compare === ChordsPlayer.notes[x]){
 					tune.push(x)
 
-					if(chord.length === 0){
+					if(tuned.length === 0){
 						break;
 					}
 
-					compare = chord.shift()
+					compare = tuned.shift()
 				}
 			}
 		}
@@ -36,7 +38,7 @@ var ChordsPlayer = {
 
 	stop: function () {
 		ChordsPlayer.audio.forEach(function(audio){
-			audio.stop()
+			audio.pause()
 		})
 
 		ChordsPlayer.audio.length = 0
@@ -45,14 +47,23 @@ var ChordsPlayer = {
 	note: function (name) {
 		var key = document.getElementById('piano-key-' + name)
 
-		key.classList.add('piano-key-active')
+		key && key.classList.add('piano-key-active');
 
 		var audio = new Audio()
 		audio.src = ChordsPlayer.root + '/' + ChordsPlayer.instrument + '/' + escape(name) + '.mp3'
 		audio.onended = function () {
-			key.classList.remove('piano-key-active')
+			key && key.classList.remove('piano-key-active');
 		}
-		audio.play()
+
+		audio.onerror = function () {
+			console.error(audio.src)
+		}
+
+		audio.addEventListener("canplaythrough",function(event){
+			audio.play()
+		})
+
+		ChordsPlayer.audio.push(audio)
 	},
 
 	play: function (chord) {
