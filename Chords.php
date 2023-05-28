@@ -124,8 +124,22 @@ class Chords
 		'dim11'        => ['C','D#','F#','A','D','F'],
 		'dim11(b9)'    => ['C','D#','F#','A','C#','F'],
 		'm11b5'        => ['C','D#','F#','A#','D','F'],
+        
+        'm11(nsx)'        => ['C','A#','D#','G','A#','D','F'],
+		'alt(nsx)'        => ['C','A#','D#','E','G#','A#','C#','D#'],
+		'maj6/9(nsx)'     => ['C','B','E','A','D','G','B'],
+		'min11(nsx)'      => ['C','G','D','D#','F','A#','D'],
+		'maj9(nsx)'       => ['C','G','C','D','E','G','A'],
+		'sus(nsx)'        => ['C','A#','D','F','A','C','E'],
+		'half-dim11(nsx)' => ['C','D#','F#','A#','D','F'],
+		'7(b9)(nsx)'      => ['C','A','A#','C#','E','A'],
+		'maj#11(nsx)'     => ['C','G','D','E','B','F#'],
+		'maj7(nsx)'       => ['C','B','C','E','G','B'],
 
-		'13(sus4)'   => ['C','A#','D','F','A']
+        '7(#9#5)(SW)' => ['C','E','A#','D#','G#'],
+        '13(sus4)(SW)'=> ['C','A#','C','D','F','A'],
+        'm11(SW)'     => ['C','A#','D','D#','F'],
+        'maj9#11(SW)' => ['C','B','E','F#'] 
 	];
 
 	private static $nonModal = [
@@ -154,6 +168,10 @@ class Chords
 
 	public static function build($root,$type)
 	{
+        if(is_null($type)){
+            return array();
+        }
+
 		return Chromatic::build($root, Relation::toInterval(
 			self::$types[$type]
 		));
